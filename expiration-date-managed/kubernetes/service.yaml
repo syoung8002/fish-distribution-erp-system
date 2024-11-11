@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: expiration-date-managed
+  labels:
+    app: expiration-date-managed
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: expiration-date-managed

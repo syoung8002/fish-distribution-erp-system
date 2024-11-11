@@ -1,0 +1,132 @@
+server:
+  port: 8088
+
+---
+
+spring:
+  profiles: default
+  cloud:
+    gateway:
+#<<< API Gateway / Routes
+      routes:
+        - id: supply-chain-information-managed
+          uri: http://localhost:8082
+          predicates:
+            - Path=/supplyChainInformations/**, 
+        - id: inventory-monitored
+          uri: http://localhost:8083
+          predicates:
+            - Path=/inventories/**, 
+        - id: production-plan-managed
+          uri: http://localhost:8084
+          predicates:
+            - Path=/productionPlans/**, 
+        - id: order-created
+          uri: http://localhost:8085
+          predicates:
+            - Path=/orders/**, 
+        - id: customer-verified-and-contacted
+          uri: http://localhost:8086
+          predicates:
+            - Path=/customerContacts/**, 
+        - id: fish-dispatched-and-delivered
+          uri: http://localhost:8087
+          predicates:
+            - Path=/fishDeliveries/**, 
+        - id: order-history-checked
+          uri: http://localhost:8088
+          predicates:
+            - Path=/orderHistories/**, 
+        - id: inventory-checked
+          uri: http://localhost:8089
+          predicates:
+            - Path=/fishInventories/**, 
+        - id: inventory-adjusted
+          uri: http://localhost:8090
+          predicates:
+            - Path=/fishInventories/**, 
+        - id: expiration-date-managed
+          uri: http://localhost:8091
+          predicates:
+            - Path=/fish/**, 
+        - id: frontend
+          uri: http://localhost:8080
+          predicates:
+            - Path=/**
+#>>> API Gateway / Routes
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+
+---
+
+spring:
+  profiles: docker
+  cloud:
+    gateway:
+      routes:
+        - id: supply-chain-information-managed
+          uri: http://supplyChainInformationManaged:8080
+          predicates:
+            - Path=/supplyChainInformations/**, 
+        - id: inventory-monitored
+          uri: http://inventoryMonitored:8080
+          predicates:
+            - Path=/inventories/**, 
+        - id: production-plan-managed
+          uri: http://productionPlanManaged:8080
+          predicates:
+            - Path=/productionPlans/**, 
+        - id: order-created
+          uri: http://orderCreated:8080
+          predicates:
+            - Path=/orders/**, 
+        - id: customer-verified-and-contacted
+          uri: http://customerVerifiedAndContacted:8080
+          predicates:
+            - Path=/customerContacts/**, 
+        - id: fish-dispatched-and-delivered
+          uri: http://fishDispatchedAndDelivered:8080
+          predicates:
+            - Path=/fishDeliveries/**, 
+        - id: order-history-checked
+          uri: http://orderHistoryChecked:8080
+          predicates:
+            - Path=/orderHistories/**, 
+        - id: inventory-checked
+          uri: http://inventoryChecked:8080
+          predicates:
+            - Path=/fishInventories/**, 
+        - id: inventory-adjusted
+          uri: http://inventoryAdjusted:8080
+          predicates:
+            - Path=/fishInventories/**, 
+        - id: expiration-date-managed
+          uri: http://expirationDateManaged:8080
+          predicates:
+            - Path=/fish/**, 
+        - id: frontend
+          uri: http://frontend:8080
+          predicates:
+            - Path=/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+server:
+  port: 8080

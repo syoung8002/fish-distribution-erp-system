@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: supply-chain-information-managed
+  labels:
+    app: supply-chain-information-managed
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: supply-chain-information-managed
